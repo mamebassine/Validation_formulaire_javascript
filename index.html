@@ -6,6 +6,38 @@
     <title>Formulaire de validation sur le langage de javaScript</title>
 </head>
 <body>
-    
+   <h1>Validation de formulaire</h1>
+
+    <form id="formulaire">
+        
+        <div>
+            <label for="prenom">Prenom :</label>
+            <input type="text" id="prenom">
+        </div>
+
+        <div>
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" required>
+        </div>
+
+        <div>
+            <label for="email">Adresse Email :</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+
+        <button type="submit">Soumettre</button>
+    </form>
+
+    <div id="successMessage" class="success" style="display: none;">
+        Formulaire soumis avec succès !
+    </div>
+
+ <script src="index.js"></script> 
 </body>
 </html>

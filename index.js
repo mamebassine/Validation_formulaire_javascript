@@ -18,36 +18,40 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initialisation de la variable de validation
         var isValid = true;
 
-        // Validation du prénom 
-        if (prenom.length < 3 || prenom.length > 15) {
+        // Réinitialiser les messages d'erreur
+        clearErrorMessage('prenom');
+        clearErrorMessage('nom');
+        clearErrorMessage('email');
+        clearErrorMessage('password');
+
+        // Validation du prénom
+        if (!prenom.match(/^[a-zA-ZÀ-ÿ\s]+$/)) {
+            displayErrorMessage('prenom', 'Le prénom ne doit contenir que des lettres.');
             isValid = false;
-            displayErrorMessage('prenom', 'Le prénom doit avoir entre 3 et 15 caractères');
-        } else {
-            clearErrorMessage('prenom');
+        } else if (prenom.length < 3 || prenom.length > 15) {
+            displayErrorMessage('prenom', 'Le prénom doit avoir entre 3 et 15 caractères.');
+            isValid = false;
         }
 
-        // Validation du nom 
-        if (nom.length < 3 || nom.length > 15) {
+        // Validation du nom
+        if (!nom.match(/^[a-zA-ZÀ-ÿ\s]+$/)) {
+            displayErrorMessage('nom', 'Le nom ne doit contenir que des lettres.');
             isValid = false;
-            displayErrorMessage('nom', 'Le nom doit avoir entre 3 et 15 caractères');
-        } else {
-            clearErrorMessage('nom');
+        } else if (nom.length < 3 || nom.length > 15) {
+            displayErrorMessage('nom', 'Le nom doit avoir entre 3 et 15 caractères.');
+            isValid = false;
         }
 
         // Validation de l'email (doit respecter un format standard)
         if (!isValidEmail(email)) {
+            displayErrorMessage('email', 'Adresse email invalide.');
             isValid = false;
-            displayErrorMessage('email', 'Adresse email invalide');
-        } else {
-            clearErrorMessage('email');
         }
 
         // Validation du mot de passe (doit contenir au moins 8 caractères)
         if (password.length < 8) {
+            displayErrorMessage('password', 'Le mot de passe doit contenir au moins 8 caractères.');
             isValid = false;
-            displayErrorMessage('password', 'Le mot de passe doit contenir au moins 8 caractères');
-        } else {
-            clearErrorMessage('password');
         }
 
         // Affichage du message de succès si toutes les validations sont correctes, sinon affichage des erreurs
@@ -67,13 +71,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayErrorMessage(fieldId, message) {
         var errorMessageElement = document.getElementById(fieldId + 'Error'); // Sélectionner l'élément de message d'erreur par ID
         errorMessageElement.innerText = message; // Mettre à jour le texte du message d'erreur
-        document.getElementById(fieldId).classList.add('form-control', 'error'); // Ajouter la classe 'error' au champ pour le styliser
+        errorMessageElement.style.display = 'block'; // Afficher le message d'erreur
+        document.getElementById(fieldId).classList.add('error'); // Ajouter la classe 'error' au champ pour le styliser
     }
 
     // Fonction pour effacer le message d'erreur pour un champ spécifique
     function clearErrorMessage(fieldId) {
         var errorMessageElement = document.getElementById(fieldId + 'Error'); // Sélectionner l'élément de message d'erreur par ID
         errorMessageElement.innerText = ''; // Vider le texte du message d'erreur
+        errorMessageElement.style.display = 'none'; // Cacher le message d'erreur
         document.getElementById(fieldId).classList.remove('error'); // Retirer la classe 'error' du champ
     }
 });
